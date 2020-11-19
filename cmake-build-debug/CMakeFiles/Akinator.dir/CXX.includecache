@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Callbacks/Callbacks.cpp
+Callbacks.h
+/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Callbacks/Callbacks.h
+
+/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Callbacks/Callbacks.h
+../Node/Node.h
+/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Node/Node.h
+cstdio
+-
+cstring
+-
+
+/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Node/Node.h
+cstdlib
+-
+
