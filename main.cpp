@@ -29,7 +29,7 @@ int main() {
         scanf("%s", user_input);
         if (!strcmp(user_input, "akinator")){
 
-            tree->traversal(node_yes_no_callback, add_node_callback, dump_tree_callback);
+            tree->traversal(node_yes_no_callback, add_node_callback, refresh_buffer_callback, file_data);
 
         } else if (!strcmp(user_input, "describe")) {
 
@@ -37,6 +37,12 @@ int main() {
             tree->find_path(user_input, node_describe_callback);
 
         }  else if (!strcmp(user_input, "exit")) {
+
+            tree_container = fopen(tree_container_file, "w");
+
+            fputs(file_data, tree_container);
+
+            fclose(tree_container);
 
             break;
 

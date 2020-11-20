@@ -20,14 +20,17 @@ void destroyTree(Tree* tree) {
     free(tree);
 }
 
-void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*), void (*dump_callback)(Node*)) {
+void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*), void(*refresh_buff_callback)(Tree*, char*), char* buffer) {
     Node* p_node = root;
+
     while (true) {
         if (!p_node) {
             return;
         }
 
-        if (*(p_node->node_name)) {
+        StringObserver name_node(p_node->node_name);
+
+        if (*(name_node.string)) {
             if (visit_callback(p_node)) {
                 p_node = p_node->yes;
             } else {
@@ -40,7 +43,7 @@ void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(No
                 p_node = nullptr;
             } else {
                 add_node_callback(p_node);
-                dump_callback(root);
+                refresh_buff_callback(this, buffer);
                 return;
             }
         }
@@ -49,8 +52,11 @@ void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(No
 }
 
 void Tree::dfs(char *node_name, Node* node, void (*describe_callback)(Node*)) {
+
+    StringObserver node_name_observer(node->node_name);
+
     if (node) {
-        if (!strcmp(node_name, node->node_name)) {
+        if (!strcmp(node_name, node_name_observer.string)) {
             describe_callback(node);
         }
         dfs(node_name, node->yes, describe_callback);

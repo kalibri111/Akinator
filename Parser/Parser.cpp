@@ -7,170 +7,189 @@
 const int MAX_COMMAND_LENGTH = 50;
 const int MAX_NODE_LENGTH    = 5000;
 
-char* Parser::behind_scopes(char *text) {
-    char* node_name = (char*)calloc(MAX_COMMAND_LENGTH, sizeof(char));
+strview_t* Parser::behind_scopes(char *text) {
+    strview_t* behind_scopes = new_strview();
 
-    u_int16_t node_name_ptr = 0;
-    while (*text) {
-        if (*text == '"') {
-            ++text;
+    behind_scopes->str = text;
 
-            while (*text != '"') {
-                node_name[node_name_ptr++] = *text;
-                ++text;
+    while (*behind_scopes->str) {
+        if (*behind_scopes->str == '"') {
+            ++(behind_scopes->str);
+
+            while (behind_scopes->str[behind_scopes->strlen] != '"') {
+                ++(behind_scopes->strlen);
             }
             break;
 
         } else {
-            ++text;
+            ++(behind_scopes->str);
         }
     }
-    return node_name;
+    return behind_scopes;
 }
 
-char* Parser::node_name(char *text) {
+strview_t* Parser::node_name(char *text) {
 
-    char* text_ptr_copy = text;
+    strview_t* node_name = new_strview();
 
-    int scope_counter = 0;
-    while (*text_ptr_copy) {
-        if (*text_ptr_copy == '[') {
-            ++scope_counter;
+    node_name->str = text;
+    bool is_scope_ex = false;
+    while (*(node_name->str)) {
+        if (*(node_name->str) == '[') {
+            is_scope_ex = true;
+            break;
         }
-        ++text_ptr_copy;
+        ++(node_name->str);
     }
+    node_name->str = text;
 
 //    list case
-    if (!scope_counter) {
-        return "";
+    if (!is_scope_ex) {
+        node_name->str    = "";
+        node_name->strlen = 0;
+        return node_name;
     }
 
-    return behind_scopes(text);
+    char* on_scope_pointer = node_name->str;
+    destruct_strview(node_name);
+    return behind_scopes(on_scope_pointer);
 }
 
-char* Parser::node_yes(char *text) {
-    char* node_yes = (char*)calloc(MAX_NODE_LENGTH, sizeof(char));
+strview_t* Parser::node_yes(char *text) {
+    strview_t* node_yes = new_strview();
 
-    char* text_ptr_copy = text;
+    node_yes->str = text;
 
-    int scope_counter = 0;
-    while (*text_ptr_copy) {
-        if (*text_ptr_copy == '[') {
-            ++scope_counter;
+    bool is_scope_ex = false;
+    while (*node_yes->str) {
+        if (*node_yes->str == '[') {
+            is_scope_ex = true;
+            break;
         }
-        ++text_ptr_copy;
+        ++node_yes->str;
     }
+    node_yes->str = text;
 
 //    list case
-    if (!scope_counter) {
-        free(node_yes);
-        return behind_scopes(text);
+    if (!is_scope_ex) {
+        char* tmp = node_yes->str;
+        destruct_strview(node_yes);
+        return behind_scopes(tmp);
     }
 
+    node_yes->str = text;
 
     int scope_balance = 0;
 
     u_int16_t node_yes_ptr = 0;
 
-    while (*text != '[' and *text) {
-        ++text;
+    while (*(node_yes->str) != '[' and *(node_yes->str)) {
+        ++(node_yes->str);
     }
 
+    char* copy = node_yes->str;
+    ++(node_yes->str);
 
-    while (*text) {
+    while (*(copy)) {
         if (scope_balance > 0) {
-            node_yes[node_yes_ptr++] = *text;
+            ++(node_yes->strlen);
         }
 
-        if (*text == '[') {
+        if (*(copy) == '[') {
             ++scope_balance;
         }
 
-        if (*text == ']') {
+        if (*(copy) == ']') {
             --scope_balance;
         }
 
         if (!scope_balance) {
             break;
         }
-        ++text;
+        ++(copy);
     }
 
     return node_yes;
 }
 
-char* Parser::node_no(char *text) {
-    char* node_no = (char*)calloc(MAX_NODE_LENGTH, sizeof(char));
+strview_t* Parser::node_no(char *text) {
+    strview_t* node_no = new_strview();
 
-    char* text_ptr_copy = text;
+    node_no->str = text;
 
-    int scope_counter = 0;
-    while (*text_ptr_copy) {
-        if (*text_ptr_copy == '[') {
-            ++scope_counter;
+    bool is_scope_ex = false;
+    while (*(node_no->str)) {
+        if (*(node_no->str) == '[') {
+            is_scope_ex = true;
+            break;
         }
-        ++text_ptr_copy;
+        ++(node_no->str);
     }
 
 //    list case
-    if (!scope_counter) {
-        free(node_no);
+    node_no->str = text;
+    if (!is_scope_ex) {
         int backticks = 0;
         while (backticks != 2) {
-            if (*text == '"') {
+            if (*(node_no->str) == '"') {
                 ++backticks;
             }
-            ++text;
+            ++(node_no->str);
         }
-        return behind_scopes(text);
+        char* tmp = node_no->str;
+        destruct_strview(node_no);
+        return behind_scopes(tmp);
     }
 
     int scope_balance = 0;
 
     u_int16_t node_no_ptr = 0;
 
-    while (*text != '[' and *text) {
-        ++text;
+    while (*(node_no->str) != '[' and *(node_no->str)) {
+        ++(node_no->str);
     }
 
-    while (*text) {
-        if (*text == '[') {
+    while (*(node_no->str)) {
+        if (*(node_no->str) == '[') {
             ++scope_balance;
         }
 
-        if (*text == ']') {
+        if (*(node_no->str) == ']') {
             --scope_balance;
         }
 
         if (!scope_balance) {
-            ++text;
 
-            while (*text != '[' and *text) {
-                ++text;
+            while (*(node_no->str) != '[' and *(node_no->str)) {
+                ++(node_no->str);
             }
 
-            while (*text) {
+            char* copy = node_no->str;
+
+
+
+            while (*(copy)) {
 
                 if (scope_balance > 0) {
-                    node_no[node_no_ptr++] = *text;
+                    ++(node_no->strlen);
                 }
 
-                if (*text == '[') {
+                if (*(copy) == '[') {
                     ++scope_balance;
                 }
 
-                if (*text == ']') {
+                if (*(copy) == ']') {
                     --scope_balance;
                 }
 
                 if (!scope_balance) {
                     return node_no;
                 }
-                ++text;
+                ++(copy);
             }
 
         }
-        ++text;
+        ++(node_no->str);
     }
 
     return node_no;
@@ -179,30 +198,30 @@ char* Parser::node_no(char *text) {
 void Parser::parse_node(char *text, Node *node) {
     if (node) {
 
-        char *name     = node_name(text);
-        char *yes_node = node_yes(text);
-        char *no_node  = node_no(text);
+        strview_t* name     = node_name(text);
+        strview_t* yes_node = node_yes(text);
+        strview_t* no_node  = node_no(text);
 
         node->node_name = name;
 
-        if (*yes_node) {
-            node->yes = newNode();
+        if (*(yes_node->str) != '\0') {
+            node->yes         = newNode();
             node->yes->parent = node;
         }
 
-        if (*no_node) {
-            node->no  = newNode();
+        if (*(no_node->str) != '\0') {
+            node->no          = newNode();
             node->no->parent  = node;
         }
 
-        if (*name == '\0') {
+        if (*(name->str) == '\0') {
             node->yes->node_name = yes_node;
             node->no->node_name  = no_node;
             return;
         }
 
-        parse_node(yes_node, node->yes);
-        parse_node(no_node, node->no);
+        parse_node(yes_node->str, node->yes);
+        parse_node(no_node->str , node->no );
     } else {
         return;
     }
@@ -214,5 +233,4 @@ void Parser::parse(char *text, Tree *tree) {
     }
 
     parse_node(text, tree->root);
-
 }

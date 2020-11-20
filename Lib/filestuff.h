@@ -12,20 +12,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-
-/*
- * тип терминирования файла:
- * DOUBLE_ZERO - .....\0\0
- * SINGLE_ZERO - .....\0
- * INVALID     - .....
- * */
-enum term_type {DOUBLE_ZERO, SINGLE_ZERO, INVALID};
-
-typedef struct strview
-{
-    size_t strlen;
-    char* str;
-} strview_t;
+#include "strview.h"
+#include "term_type.h"
+#include "file_str.h"
 
 /*
  * аллоцирует заданное количество структур
@@ -72,14 +61,10 @@ void indexToFile(const char* file_name, struct strview* index, size_t index_size
 
 void buffToFile(const char* file_name, char* buffer, size_t buffer_size);
 
-
-typedef struct String{
-    strview_t* index;
-    char*      buffer;
-    size_t     rows_count;
-    size_t     file_size;
-} file_str;
-
 file_str* construct_file_str(FILE* input_file);
 
 void destruct_file_str(file_str* file_str);
+
+void destruct_strview(strview_t* view);
+
+strview_t* new_strview();

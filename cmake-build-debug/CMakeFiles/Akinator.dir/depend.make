@@ -3,25 +3,57 @@
 
 CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Callbacks/Callbacks.cpp
 CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Callbacks/Callbacks.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Lib/StringObserver.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Lib/file_str.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Lib/filestuff.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Lib/strview.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Lib/term_type.h
 CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Node/Node.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Parser/Parser.h
+CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o: ../Tree/Tree.h
 
+CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.o: ../Lib/StringObserver.cpp
+CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.o: ../Lib/StringObserver.h
+CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.o: ../Lib/strview.h
+
+CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o: ../Lib/file_str.h
 CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o: ../Lib/filestuff.cpp
 CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o: ../Lib/filestuff.h
+CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o: ../Lib/strview.h
+CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o: ../Lib/term_type.h
 
+CMakeFiles/Akinator.dir/Node/Node.cpp.o: ../Lib/file_str.h
+CMakeFiles/Akinator.dir/Node/Node.cpp.o: ../Lib/filestuff.h
+CMakeFiles/Akinator.dir/Node/Node.cpp.o: ../Lib/strview.h
+CMakeFiles/Akinator.dir/Node/Node.cpp.o: ../Lib/term_type.h
 CMakeFiles/Akinator.dir/Node/Node.cpp.o: ../Node/Node.cpp
 CMakeFiles/Akinator.dir/Node/Node.cpp.o: ../Node/Node.h
 
+CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Lib/StringObserver.h
+CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Lib/file_str.h
+CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Lib/filestuff.h
+CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Lib/strview.h
+CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Lib/term_type.h
 CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Node/Node.h
 CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Parser/Parser.cpp
 CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Parser/Parser.h
 CMakeFiles/Akinator.dir/Parser/Parser.cpp.o: ../Tree/Tree.h
 
+CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Lib/StringObserver.h
+CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Lib/file_str.h
+CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Lib/filestuff.h
+CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Lib/strview.h
+CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Lib/term_type.h
 CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Node/Node.h
 CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Tree/Tree.cpp
 CMakeFiles/Akinator.dir/Tree/Tree.cpp.o: ../Tree/Tree.h
 
 CMakeFiles/Akinator.dir/main.cpp.o: ../Callbacks/Callbacks.h
+CMakeFiles/Akinator.dir/main.cpp.o: ../Lib/StringObserver.h
+CMakeFiles/Akinator.dir/main.cpp.o: ../Lib/file_str.h
 CMakeFiles/Akinator.dir/main.cpp.o: ../Lib/filestuff.h
+CMakeFiles/Akinator.dir/main.cpp.o: ../Lib/strview.h
+CMakeFiles/Akinator.dir/main.cpp.o: ../Lib/term_type.h
 CMakeFiles/Akinator.dir/main.cpp.o: ../Node/Node.h
 CMakeFiles/Akinator.dir/main.cpp.o: ../Parser/Parser.h
 CMakeFiles/Akinator.dir/main.cpp.o: ../Tree/Tree.h

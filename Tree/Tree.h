@@ -5,11 +5,14 @@
 #ifndef AKINATOR_TREE_H
 #define AKINATOR_TREE_H
 #include "../Node/Node.h"
+#include "../Lib/StringObserver.h"
+
 #include <cstring>
+
 
 class Tree {
 public:
-    void traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*), void(*dump_callback)(Node*));
+    void traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*), void(*refresh_buff_callback)(Tree*, char*), char* buffer);
 
     void dfs(char* node_name, Node* node, void (*describe_callback)(Node*));
 

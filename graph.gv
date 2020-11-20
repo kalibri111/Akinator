@@ -1,7 +1,0 @@
-digraph G{
-diff->
-diff->
-node_yes->diff
-root->node_yes
-
-}

@@ -13,4 +13,4 @@ add_executable(
         Parser/Parser.cpp Parser/Parser.h
         Lib/filestuff.cpp Lib/filestuff.h
         Callbacks/Callbacks.cpp Callbacks/Callbacks.h
-        config.h )
+        config.h Lib/strview.h Lib/term_type.h Lib/file_str.h Lib/StringObserver.cpp Lib/StringObserver.h)

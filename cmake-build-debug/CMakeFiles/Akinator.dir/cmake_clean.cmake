@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "Akinator"
   "Akinator.pdb"
   "CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o"
+  "CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.o"
   "CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o"
   "CMakeFiles/Akinator.dir/Node/Node.cpp.o"
   "CMakeFiles/Akinator.dir/Parser/Parser.cpp.o"

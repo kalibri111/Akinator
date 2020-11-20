@@ -2,7 +2,7 @@
 [
     "node_yes"
     [
-        "list_yes"
+        "diff["new_list"]list_yes"
         "list_no"
     ]
 ]

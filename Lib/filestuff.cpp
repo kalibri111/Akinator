@@ -143,3 +143,16 @@ void destruct_file_str(file_str* file_str) {
     destroyIndex(file_str->index);
     destroyBuffer(file_str->buffer);
 }
+
+strview_t* new_strview() {
+    strview_t* new_s = (strview_t*)calloc(1, sizeof(strview_t));
+    new_s->str    = nullptr;
+    new_s->strlen = 0;
+    return new_s;
+}
+
+void destruct_strview(strview_t* view) {
+    if (!view)
+        return;
+    free(view);
+}

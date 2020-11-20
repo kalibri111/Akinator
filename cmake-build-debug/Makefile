@@ -170,6 +170,33 @@ Callbacks/Callbacks.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.s
 .PHONY : Callbacks/Callbacks.cpp.s
 
+Lib/StringObserver.o: Lib/StringObserver.cpp.o
+
+.PHONY : Lib/StringObserver.o
+
+# target to build an object file
+Lib/StringObserver.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.o
+.PHONY : Lib/StringObserver.cpp.o
+
+Lib/StringObserver.i: Lib/StringObserver.cpp.i
+
+.PHONY : Lib/StringObserver.i
+
+# target to preprocess a source file
+Lib/StringObserver.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.i
+.PHONY : Lib/StringObserver.cpp.i
+
+Lib/StringObserver.s: Lib/StringObserver.cpp.s
+
+.PHONY : Lib/StringObserver.s
+
+# target to generate assembly for a file
+Lib/StringObserver.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Akinator.dir/build.make CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.s
+.PHONY : Lib/StringObserver.cpp.s
+
 Lib/filestuff.o: Lib/filestuff.cpp.o
 
 .PHONY : Lib/filestuff.o
@@ -317,6 +344,9 @@ help:
 	@echo "... Callbacks/Callbacks.o"
 	@echo "... Callbacks/Callbacks.i"
 	@echo "... Callbacks/Callbacks.s"
+	@echo "... Lib/StringObserver.o"
+	@echo "... Lib/StringObserver.i"
+	@echo "... Lib/StringObserver.s"
 	@echo "... Lib/filestuff.o"
 	@echo "... Lib/filestuff.i"
 	@echo "... Lib/filestuff.s"

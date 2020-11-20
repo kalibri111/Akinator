@@ -10,13 +10,13 @@ void dfs(Node* node, FILE* file) {
         dfs(node->yes, file);
         dfs(node->no , file);
 
-        if (*(node->node_name)) {
+        if (*(node->node_name->str)) {
             if (node->no) {
-                fprintf(file, "%s->%s\n", node->node_name, node->no->node_name);
+                fprintf(file, "%s->%s\n", node->node_name->str, node->no->node_name->str);
             }
 
             if (node->yes) {
-                fprintf(file, "%s->%s\n", node->node_name, node->yes->node_name);
+                fprintf(file, "%s->%s\n", node->node_name->str, node->yes->node_name->str);
             }
         }
 
@@ -41,7 +41,9 @@ void dump_tree_callback(Node* root){
 bool node_yes_no_callback(Node* node) {
     char user_answer[10] = {};
 
-    printf("is %s\n", node->node_name);
+    StringObserver node_name(node->node_name);
+
+    printf("is %s\n", node_name.string);
     scanf("%s", user_answer);
 
     if (!strcmp(user_answer, "yes")) {
@@ -56,11 +58,11 @@ bool node_yes_no_callback(Node* node) {
 
 void node_describe_callback(Node* node) {
 
-    printf("%s\n", node->node_name);
+    printf("%s\n", node->node_name->str);
 
     while (node->parent) {
-        if (*(node->parent->node_name)) {
-            printf(" is %s\n", node->parent->node_name);
+        if (*(node->parent->node_name->str)) {
+            printf(" is %s\n", node->parent->node_name->str);
         }
         node = node->parent;
     }
@@ -70,16 +72,22 @@ void node_describe_callback(Node* node) {
 void add_node_callback(Node* node) {
     printf("What difference?\n");
 
+    char* new_node_name     = (char*)calloc(50, sizeof(char));
+    char* new_list_yes_name = (char*)calloc(50, sizeof(char));
+
     Node* new_node      = newNode();
     Node* new_list_node = newNode();
     Node* new_list_yes  = newNode();
 
 
-    scanf("%s", new_node->node_name);
+    scanf("%s", new_node_name);
+    new_node->node_name->str = new_node_name;
     printf("What is it?\n");
-    scanf("%s", new_list_yes->node_name);
+    scanf("%s", new_list_yes_name);
 
-    new_list_node->node_name = "";
+    new_list_yes->node_name->str = new_list_yes_name;
+
+    new_list_node->node_name->str = "";
 
     node->parent->yes = new_node;
 
@@ -89,4 +97,31 @@ void add_node_callback(Node* node) {
 
     new_list_node->parent = new_node;
     new_list_node->yes    = new_list_yes;
+
+    char* new_node_yes_str = (char*)calloc(strlen(node->node_name->str) + 50, sizeof(char));
+
+    strcat(new_node_yes_str, new_node_name);
+    strcat(new_node_yes_str + strlen(new_node_name), R"([")");
+    strcat(new_node_yes_str + strlen(new_node_name) + 2, new_list_yes_name);
+    strcat(new_node_yes_str + strlen(new_node_name) + strlen(new_list_yes_name) + 2, R"("][)");
+
+    size_t new_node_ptr = strlen(new_node_name) + strlen(new_list_yes_name) + 2 + 2;
+    size_t node_yes_ptr = 0;
+    while (node->yes->node_name->str[node_yes_ptr] != ']') {
+        new_node_yes_str[new_node_ptr] = node->yes->node_name->str[node_yes_ptr];
+        ++node_yes_ptr;
+        ++new_node_ptr;
+    }
+
+    strcat(new_node_yes_str + new_node_ptr, "]");
+
+//    memcpy(node->yes->node_name->str, new_node_yes_str, new_node_ptr);
+    strcat(new_node_yes_str, node->yes->node_name->str + (node_yes_ptr + 1));
+    memcpy(node->yes->node_name->str, new_node_yes_str, strlen(new_node_yes_str));
 }
+
+void refresh_buffer_callback(Tree* tree, char* buffer) {
+    Parser parser;
+    parser.parse(buffer, tree);
+}
+

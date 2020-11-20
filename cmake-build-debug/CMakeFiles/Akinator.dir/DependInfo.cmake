@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Callbacks/Callbacks.cpp" "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/cmake-build-debug/CMakeFiles/Akinator.dir/Callbacks/Callbacks.cpp.o"
+  "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/StringObserver.cpp" "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/cmake-build-debug/CMakeFiles/Akinator.dir/Lib/StringObserver.cpp.o"
   "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/filestuff.cpp" "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/cmake-build-debug/CMakeFiles/Akinator.dir/Lib/filestuff.cpp.o"
   "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Node/Node.cpp" "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/cmake-build-debug/CMakeFiles/Akinator.dir/Node/Node.cpp.o"
   "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Parser/Parser.cpp" "/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/cmake-build-debug/CMakeFiles/Akinator.dir/Parser/Parser.cpp.o"

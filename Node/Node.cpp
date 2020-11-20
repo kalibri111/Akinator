@@ -10,7 +10,7 @@ const size_t INIT_BUF_SIZE = 59;
 Node* newNode() {
     Node* new_node = (Node*)calloc(1, sizeof(Node));
 
-    new_node->node_name = (char*)calloc(INIT_BUF_SIZE, sizeof(char));
+    new_node->node_name = new_strview();
 
     new_node->yes     = nullptr;
     new_node->no      = nullptr;

@@ -5,6 +5,7 @@
 #ifndef AKINATOR_NODE_H
 #define AKINATOR_NODE_H
 #include <cstdlib>
+#include "../Lib/filestuff.h"
 
 /*
  *        node
@@ -14,7 +15,7 @@
  * */
 class Node {
 public:
-    char* node_name;
+    strview_t* node_name;
     Node* yes;
     Node* no;
     Node* parent;

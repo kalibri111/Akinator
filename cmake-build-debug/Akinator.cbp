@@ -90,10 +90,25 @@
 		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Callbacks/Callbacks.h">
 			<Option target="Akinator"/>
 		</Unit>
+		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/StringObserver.cpp">
+			<Option target="Akinator"/>
+		</Unit>
+		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/StringObserver.h">
+			<Option target="Akinator"/>
+		</Unit>
+		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/file_str.h">
+			<Option target="Akinator"/>
+		</Unit>
 		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/filestuff.cpp">
 			<Option target="Akinator"/>
 		</Unit>
 		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/filestuff.h">
+			<Option target="Akinator"/>
+		</Unit>
+		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/strview.h">
+			<Option target="Akinator"/>
+		</Unit>
+		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Lib/term_type.h">
 			<Option target="Akinator"/>
 		</Unit>
 		<Unit filename="/home/kalibri/MIPT/1_sem/Dedinsky/Akinator/Node/Node.cpp">
