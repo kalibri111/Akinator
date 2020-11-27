@@ -1,8 +1,45 @@
-"root"
+"is alive"
 [
-    "node_yes"
+    "is phystech"
     [
-        "diff["new_list"]list_yes"
-        "list_no"
+        "is a student"
+        [
+            "An average MIPT fun"
+
+            "An everage MIPT enjoyer"
+        ]
+        [
+            "is selling you something"
+                [
+                    "does say 'thank you' after every purchase"
+                    [
+                        "Alisher"
+
+                        "Canteen saleswoman"
+                    ]
+                    [
+                    "does look for you in the shower"
+                        [
+                            "does want to steal your food"
+                            [
+                                "is already fried and eaten"
+                                [
+                                    "A rat"
+
+                                    "A cockroach"
+                                ]
+                                [
+                                "is the most known living creature in MIPT"
+                                    [
+                                        "Poltorashka"
+
+                                        "Sobaken#443"
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+        ]
     ]
 ]

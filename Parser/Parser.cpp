@@ -11,13 +11,17 @@ strview_t* Parser::behind_scopes(char *text) {
     strview_t* behind_scopes = new_strview();
 
     behind_scopes->str = text;
+    behind_scopes->strlen = 0;
 
     while (*behind_scopes->str) {
         if (*behind_scopes->str == '"') {
             ++(behind_scopes->str);
 
-            while (behind_scopes->str[behind_scopes->strlen] != '"') {
+            char* copy = behind_scopes->str;
+
+            while (*copy != '"') {
                 ++(behind_scopes->strlen);
+                ++copy;
             }
             break;
 
@@ -28,24 +32,24 @@ strview_t* Parser::behind_scopes(char *text) {
     return behind_scopes;
 }
 
-strview_t* Parser::node_name(char *text) {
+strview_t* Parser::node_name(char *text, size_t len) {
 
     strview_t* node_name = new_strview();
 
     node_name->str = text;
     bool is_scope_ex = false;
-    while (*(node_name->str)) {
-        if (*(node_name->str) == '[') {
+    for (int i = 0; i < len; ++i) {
+
+        if (node_name->str[i] == '[') {
             is_scope_ex = true;
             break;
         }
-        ++(node_name->str);
     }
     node_name->str = text;
 
 //    list case
     if (!is_scope_ex) {
-        node_name->str    = "";
+        node_name->str    = nullptr;
         node_name->strlen = 0;
         return node_name;
     }
@@ -55,18 +59,18 @@ strview_t* Parser::node_name(char *text) {
     return behind_scopes(on_scope_pointer);
 }
 
-strview_t* Parser::node_yes(char *text) {
+strview_t* Parser::node_yes(char *text, size_t len) {
     strview_t* node_yes = new_strview();
 
     node_yes->str = text;
 
     bool is_scope_ex = false;
-    while (*node_yes->str) {
-        if (*node_yes->str == '[') {
+    for (int i = 0; i < len; ++i) {
+
+        if (node_yes->str[i] == '[') {
             is_scope_ex = true;
             break;
         }
-        ++node_yes->str;
     }
     node_yes->str = text;
 
@@ -112,18 +116,22 @@ strview_t* Parser::node_yes(char *text) {
     return node_yes;
 }
 
-strview_t* Parser::node_no(char *text) {
+strview_t* Parser::node_no(char *text, size_t len) {
     strview_t* node_no = new_strview();
+
+    if (!*text) {
+        return node_no;
+    }
 
     node_no->str = text;
 
     bool is_scope_ex = false;
-    while (*(node_no->str)) {
-        if (*(node_no->str) == '[') {
+    for (int i = 0; i < len; ++i) {
+
+        if (node_no->str[i] == '[') {
             is_scope_ex = true;
             break;
         }
-        ++(node_no->str);
     }
 
 //    list case
@@ -160,11 +168,11 @@ strview_t* Parser::node_no(char *text) {
 
         if (!scope_balance) {
 
-            while (*(node_no->str) != '[' and *(node_no->str)) {
+            while (*(node_no->str) != '\0' and *(node_no->str) != '[') {
                 ++(node_no->str);
             }
 
-            char* copy = node_no->str;
+            char* copy = ++(node_no->str);
 
 
 
@@ -195,42 +203,47 @@ strview_t* Parser::node_no(char *text) {
     return node_no;
 }
 
-void Parser::parse_node(char *text, Node *node) {
+void Parser::parse_node(char *text, size_t len, Node *node) {
     if (node) {
 
-        strview_t* name     = node_name(text);
-        strview_t* yes_node = node_yes(text);
-        strview_t* no_node  = node_no(text);
+        strview_t* name     = node_name(text, len);
+        strview_t* yes_node = node_yes(text, len);
+        strview_t* no_node  = node_no(text, len);
+
+        printf("name: %s\n", StringObserver(name).string);
+        printf("yes: %s\n", StringObserver(yes_node).string);
+        printf("no: %s\n", StringObserver(no_node).string);
+        printf("------------------------------\n");
 
         node->node_name = name;
 
-        if (*(yes_node->str) != '\0') {
+        if (yes_node->str and *(yes_node->str) != '\0') {
             node->yes         = newNode();
             node->yes->parent = node;
         }
 
-        if (*(no_node->str) != '\0') {
+        if (no_node->str and *(no_node->str) != '\0') {
             node->no          = newNode();
             node->no->parent  = node;
         }
 
-        if (*(name->str) == '\0') {
+        if (!(name->str)) {
             node->yes->node_name = yes_node;
             node->no->node_name  = no_node;
             return;
         }
 
-        parse_node(yes_node->str, node->yes);
-        parse_node(no_node->str , node->no );
+        parse_node(yes_node->str, yes_node->strlen, node->yes);
+        parse_node(no_node->str , yes_node->strlen, node->no );
     } else {
         return;
     }
 }
 
-void Parser::parse(char *text, Tree *tree) {
+void Parser::parse(char *text, size_t len, Tree *tree) {
     if (!tree->root) {
         tree->root = (Node*)calloc(1, sizeof(Node));
     }
 
-    parse_node(text, tree->root);
+    parse_node(text, len, tree->root);
 }

@@ -26,4 +26,18 @@ Node* newNode();
 void destructNode(Node* node);
 
 
+class NodeVector {
+public:
+    void push_back(Node* value);
+    Node* pop_back();
+
+    Node** buffer;
+    size_t size;
+    size_t capacity;
+};
+
+NodeVector* newNodeVector();
+
+void destructNodeVector(NodeVector* obj);
+
 #endif //AKINATOR_NODE_H

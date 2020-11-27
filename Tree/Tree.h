@@ -12,11 +12,13 @@
 
 class Tree {
 public:
-    void traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*), void(*refresh_buff_callback)(Tree*, char*), char* buffer);
+    void traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*, char**), void(*refresh_buff_callback)(Tree*, char*), char** buffer);
 
-    void dfs(char* node_name, Node* node, void (*describe_callback)(Node*));
+    void dfs(char* node_name, Node* node, NodeVector* stack, void (*visit_callback)(Node*, char*, NodeVector*));
 
-    void find_path(char* node_name, void (*describe_callback)(Node*));
+    void dfs(FILE* file, Node* node, void (*visit_callback)(Node*, FILE*));
+
+    void find_path(char* node_name, NodeVector* stack, void (*visit_callback)(Node*, char*, NodeVector*));
 
     Node* root;
 };
@@ -24,7 +26,5 @@ public:
 Tree* newTree();
 
 void destroyTree(Tree* tree);
-
-
 
 #endif //AKINATOR_TREE_H

@@ -20,7 +20,7 @@ void destroyTree(Tree* tree) {
     free(tree);
 }
 
-void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*), void(*refresh_buff_callback)(Tree*, char*), char* buffer) {
+void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(Node*, char**), void(*refresh_buff_callback)(Tree*, char*), char** buffer) {
     Node* p_node = root;
 
     while (true) {
@@ -34,6 +34,14 @@ void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(No
             if (visit_callback(p_node)) {
                 p_node = p_node->yes;
             } else {
+
+                if (!(p_node->no)) {
+                    add_node_callback(p_node, buffer);
+                    refresh_buff_callback(this, *buffer);
+
+                    return;
+                }
+
                 p_node = p_node->no;
             }
         } else {
@@ -42,8 +50,8 @@ void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(No
             } else if (visit_callback(p_node->no)) {
                 p_node = nullptr;
             } else {
-                add_node_callback(p_node);
-                refresh_buff_callback(this, buffer);
+                add_node_callback(p_node, buffer);
+                refresh_buff_callback(this, *buffer);
                 return;
             }
         }
@@ -51,21 +59,28 @@ void Tree::traversal(bool (*visit_callback)(Node*), void (*add_node_callback)(No
 
 }
 
-void Tree::dfs(char *node_name, Node* node, void (*describe_callback)(Node*)) {
-
-    StringObserver node_name_observer(node->node_name);
+void Tree::dfs(char *node_name, Node* node, NodeVector* stack, void (*visit_callback)(Node*, char*, NodeVector*)) {
 
     if (node) {
-        if (!strcmp(node_name, node_name_observer.string)) {
-            describe_callback(node);
-        }
-        dfs(node_name, node->yes, describe_callback);
-        dfs(node_name, node->no, describe_callback);
+        visit_callback(node, node_name, stack);
+        dfs(node_name, node->yes, stack, visit_callback);
+        dfs(node_name, node->no , stack, visit_callback);
     } else {
         return;
     }
 }
 
-void Tree::find_path(char *node_name, void (*describe_callback)(Node*)) {
-    dfs(node_name, root, describe_callback);
+void Tree::dfs(FILE* file, Node* node, void (*visit_callback)(Node*, FILE*)) {
+
+    if (node) {
+        visit_callback(node, file);
+        dfs(file, node->yes, visit_callback);
+        dfs(file, node->no , visit_callback);
+    } else {
+        return;
+    }
+}
+
+void Tree::find_path(char *node_name, NodeVector* stack, void (*visit_callback)(Node*, char*, NodeVector*)) {
+    dfs(node_name, root, stack, visit_callback);
 }

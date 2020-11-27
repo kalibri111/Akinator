@@ -27,3 +27,36 @@ void destructNode(Node* node) {
         free(node);
     }
 }
+
+NodeVector* newNodeVector() {
+    NodeVector* self = (NodeVector*)calloc(1, sizeof(NodeVector));
+    self->buffer = (Node**)calloc(100, sizeof(Node*));
+    self->size   = 0;
+
+    self->capacity = 100;
+
+    return self;
+}
+
+void destructNodeVector(NodeVector* obj) {
+    if (obj) {
+        if (obj->buffer) {
+            free(obj->buffer);
+        }
+        free(obj);
+    }
+}
+
+void NodeVector::push_back(Node *value) {
+    if (size == capacity) {
+        buffer = (Node**)realloc(buffer, size*2);
+        capacity = size*2;
+    }
+    buffer[size] = value;
+    ++size;
+}
+
+Node* NodeVector::pop_back() {
+    --size;
+    return buffer[size];
+}
